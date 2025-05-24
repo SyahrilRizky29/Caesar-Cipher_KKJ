@@ -1,59 +1,184 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
-def encrypt(text, shift):
-    result = ""
-    for char in text:
-        if char.isalpha():
-            start = ord('A') if char.isupper() else ord('a')
-            result += chr((ord(char) - start + shift) % 26 + start)
+def enkripsi(teks, geser):
+    hasil = ""
+    for karakter in teks:
+        if karakter.isalpha():
+            awal = ord('A') if karakter.isupper() else ord('a')
+            hasil += chr((ord(karakter) - awal + geser) % 26 + awal)
         else:
-            result += char
-    return result
+            hasil += karakter
+    return hasil
 
-def decrypt(text, shift):
-    return encrypt(text, -shift)
+def dekripsi(teks, geser):
+    return enkripsi(teks, -geser)
 
-def proses_encrypt():
+def proses_enkripsi():
     teks = entry_input.get()
     try:
-        geser = int(entry_shift.get())
+        geser = int(entry_geser.get())
     except ValueError:
-        messagebox.showerror("Error", "Shift harus berupa angka.")
+        messagebox.showerror("Error", "Nilai geser harus berupa angka.")
         return
-    hasil = encrypt(teks, geser)
+    hasil = enkripsi(teks, geser)
     output_var.set(hasil)
 
-def proses_decrypt():
+def proses_dekripsi():
     teks = entry_input.get()
     try:
-        geser = int(entry_shift.get())
+        geser = int(entry_geser.get())
     except ValueError:
-        messagebox.showerror("Error", "Shift harus berupa angka.")
+        messagebox.showerror("Error", "Nilai geser harus berupa angka.")
         return
-    hasil = decrypt(teks, geser)
+    hasil = dekripsi(teks, geser)
     output_var.set(hasil)
 
+
+# Root window
 root = tk.Tk()
-root.title("Kriptografi Caesar Cipher")
+root.title("Fenrir Eye")
+root.geometry("480x380")
+root.resizable(False, False)
+root.configure(bg="#2c3e50")
 
-tk.Label(root, text="Masukkan teks:").grid(row=0, column=0, sticky="w")
-entry_input = tk.Entry(root, width=40)
-entry_input.grid(row=0, column=1, padx=10, pady=5)
+# Warna tema
+warna_latar = "#2c3e50"
+warna_teks = "#ecf0f1"
+warna_aksen = "#3498db"
+warna_hover = "#2980b9"
 
-tk.Label(root, text="Jumlah shift:").grid(row=1, column=0, sticky="w")
-entry_shift = tk.Entry(root, width=10)
-entry_shift.grid(row=1, column=1, sticky="w", padx=10, pady=5)
+# Set icon aplikasi (pastikan path benar dan file .ico valid)
+root.iconbitmap("D:/Xampp/htdocs/crypto-project/img/iconfinder.ico")
 
-btn_encrypt = tk.Button(root, text="Encrypt", command=proses_encrypt)
-btn_encrypt.grid(row=2, column=0, pady=10)
+# Style untuk button rounded dan warna biru
+style = ttk.Style()
+style.theme_use("clam")
 
-btn_decrypt = tk.Button(root, text="Decrypt", command=proses_decrypt)
-btn_decrypt.grid(row=2, column=1, pady=10)
+style.configure(
+    "Rounded.TButton",
+    foreground="white",
+    background=warna_aksen,
+    font=("Arial", 10, "bold"),
+    padding=6,
+    borderwidth=0,
+    relief="flat"
+)
+
+style.map(
+    "Rounded.TButton",
+    background=[("active", warna_hover)]
+)
+
+# Frame utama
+main_frame = tk.Frame(root, bg=warna_latar, padx=30, pady=20)
+main_frame.pack(fill=tk.BOTH, expand=True)
+
+# Judul App
+label_judul = tk.Label(
+    main_frame,
+    text="Caesar Cipher",
+    font=("Arial", 16, "bold"),
+    fg=warna_aksen,
+    bg=warna_latar
+)
+label_judul.pack(pady=(0, 25))
+
+# Frame Form Input
+form_frame = tk.Frame(main_frame, bg=warna_latar)
+form_frame.pack()
+
+# Lebar kolom label
+label_width = 15
+
+# Label dan Entry
+label_input = tk.Label(
+    form_frame,
+    text="Masukkan Teks:",
+    font=("Arial", 10),
+    fg=warna_teks,
+    bg=warna_latar,
+    width=label_width,
+    anchor="w"
+)
+label_input.grid(row=0, column=0, sticky="w", padx=5, pady=8)
+
+entry_input = ttk.Entry(form_frame, font=("Arial", 11), width=34)
+entry_input.grid(row=0, column=1, padx=10, pady=8)
+
+# Label dan Spinbox Nilai Geser
+label_geser = tk.Label(
+    form_frame,
+    text="Nilai Geser:",
+    font=("Arial", 10),
+    fg=warna_teks,
+    bg=warna_latar,
+    width=label_width,
+    anchor="w"
+)
+label_geser.grid(row=1, column=0, sticky="w", padx=5, pady=8)
+
+entry_geser = ttk.Spinbox(
+    form_frame,
+    from_=0,
+    to=25,
+    width=6,
+    font=("Arial", 11),
+    justify="center"
+)
+entry_geser.set(13)
+entry_geser.grid(row=1, column=1, padx=10, pady=8, sticky="w")
+
+# Label dan Entry Hasil
+label_output = tk.Label(
+    form_frame,
+    text="Hasil:",
+    font=("Arial", 10),
+    fg=warna_teks,
+    bg=warna_latar,
+    width=label_width,
+    anchor="w"
+)
+label_output.grid(row=2, column=0, sticky="w", padx=5, pady=(15, 8))
 
 output_var = tk.StringVar()
-tk.Label(root, text="Hasil:").grid(row=3, column=0, sticky="w")
-entry_output = tk.Entry(root, textvariable=output_var, width=40, state="readonly")
-entry_output.grid(row=3, column=1, padx=10, pady=5)
+entry_output = ttk.Entry(
+    form_frame,
+    textvariable=output_var,
+    font=("Courier New", 11),
+    width=34,
+    state="readonly"
+)
+entry_output.grid(row=2, column=1, padx=10, pady=(15, 8))
+
+# Frame tombol
+button_frame = tk.Frame(main_frame, bg=warna_latar)
+button_frame.pack(pady=20)
+
+btn_encrypt = ttk.Button(
+    button_frame,
+    text="ENCRYPT",
+    command=proses_enkripsi,
+    style="Rounded.TButton"
+)
+btn_encrypt.pack(side=tk.LEFT, padx=15)
+
+btn_decrypt = ttk.Button(
+    button_frame,
+    text="DECRYPT",
+    command=proses_dekripsi,
+    style="Rounded.TButton"
+)
+btn_decrypt.pack(side=tk.LEFT, padx=15)
+
+# Footer
+footer = tk.Label(
+    main_frame,
+    text="Created by Fenrir Eye",
+    font=("Arial", 9),
+    fg=warna_teks,
+    bg=warna_latar
+)
+footer.pack(pady=(15, 0))
 
 root.mainloop()
