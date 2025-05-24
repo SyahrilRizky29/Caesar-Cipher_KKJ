@@ -36,7 +36,7 @@ def proses_dekripsi():
 
 
 root = tk.Tk()
-root.title("Fenrir Eye")
+root.title("CYPHR")
 root.geometry("480x380")
 root.resizable(False, False)
 root.configure(bg="#2c3e50")
@@ -161,7 +161,7 @@ btn_decrypt.pack(side=tk.LEFT, padx=15)
 
 footer = tk.Label(
     main_frame,
-    text="Created by Fenrir Eye",
+    text="Cryptography",
     font=("Arial", 9),
     fg=warna_teks,
     bg=warna_latar
