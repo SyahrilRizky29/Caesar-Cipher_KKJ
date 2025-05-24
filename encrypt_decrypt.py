@@ -35,23 +35,19 @@ def proses_dekripsi():
     output_var.set(hasil)
 
 
-# Root window
 root = tk.Tk()
 root.title("Fenrir Eye")
 root.geometry("480x380")
 root.resizable(False, False)
 root.configure(bg="#2c3e50")
 
-# Warna tema
 warna_latar = "#2c3e50"
 warna_teks = "#ecf0f1"
 warna_aksen = "#3498db"
 warna_hover = "#2980b9"
 
-# Set icon aplikasi (pastikan path benar dan file .ico valid)
 root.iconbitmap("D:/Xampp/htdocs/crypto-project/img/iconfinder.ico")
 
-# Style untuk button rounded dan warna biru
 style = ttk.Style()
 style.theme_use("clam")
 
@@ -70,11 +66,9 @@ style.map(
     background=[("active", warna_hover)]
 )
 
-# Frame utama
 main_frame = tk.Frame(root, bg=warna_latar, padx=30, pady=20)
 main_frame.pack(fill=tk.BOTH, expand=True)
 
-# Judul App
 label_judul = tk.Label(
     main_frame,
     text="Caesar Cipher",
@@ -84,14 +78,11 @@ label_judul = tk.Label(
 )
 label_judul.pack(pady=(0, 25))
 
-# Frame Form Input
 form_frame = tk.Frame(main_frame, bg=warna_latar)
 form_frame.pack()
 
-# Lebar kolom label
 label_width = 15
 
-# Label dan Entry
 label_input = tk.Label(
     form_frame,
     text="Masukkan Teks:",
@@ -106,7 +97,6 @@ label_input.grid(row=0, column=0, sticky="w", padx=5, pady=8)
 entry_input = ttk.Entry(form_frame, font=("Arial", 11), width=34)
 entry_input.grid(row=0, column=1, padx=10, pady=8)
 
-# Label dan Spinbox Nilai Geser
 label_geser = tk.Label(
     form_frame,
     text="Nilai Geser:",
@@ -129,7 +119,6 @@ entry_geser = ttk.Spinbox(
 entry_geser.set(13)
 entry_geser.grid(row=1, column=1, padx=10, pady=8, sticky="w")
 
-# Label dan Entry Hasil
 label_output = tk.Label(
     form_frame,
     text="Hasil:",
@@ -151,7 +140,6 @@ entry_output = ttk.Entry(
 )
 entry_output.grid(row=2, column=1, padx=10, pady=(15, 8))
 
-# Frame tombol
 button_frame = tk.Frame(main_frame, bg=warna_latar)
 button_frame.pack(pady=20)
 
@@ -171,7 +159,6 @@ btn_decrypt = ttk.Button(
 )
 btn_decrypt.pack(side=tk.LEFT, padx=15)
 
-# Footer
 footer = tk.Label(
     main_frame,
     text="Created by Fenrir Eye",
