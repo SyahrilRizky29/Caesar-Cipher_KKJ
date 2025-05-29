@@ -38,8 +38,8 @@ def proses_dekripsi():
     hasil = dekripsi(teks, geser)
     output_var.set(hasil)
 
+# Buat cegah input keyboard di kolom hasil
 def disable_typing(event):
-    # Buat cegah input keyboard di kolom hasil
     return "break"
 
 # Buat Window utama dengan tema modern
