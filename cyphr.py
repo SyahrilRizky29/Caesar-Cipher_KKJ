@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+# Buat Fungsi Caesar Cipher
 def enkripsi(teks, geser):
     hasil = ""
     for karakter in teks:
@@ -34,13 +35,14 @@ def proses_dekripsi():
     hasil = dekripsi(teks, geser)
     output_var.set(hasil)
 
-
+# Buat GUI nya
 root = tk.Tk()
 root.title("CYPHR")
-root.geometry("480x380")
-root.resizable(False, False)
+root.minsize(480, 380)
+root.resizable(True, True)
 root.configure(bg="#2c3e50")
 
+# Buat atur warna tema
 warna_latar = "#2c3e50"
 warna_teks = "#ecf0f1"
 warna_aksen = "#3498db"
@@ -48,6 +50,7 @@ warna_hover = "#2980b9"
 
 root.iconbitmap("D:/Xampp/htdocs/crypto-project/img/iconfinder.ico")
 
+# Style
 style = ttk.Style()
 style.theme_use("clam")
 
@@ -66,6 +69,7 @@ style.map(
     background=[("active", warna_hover)]
 )
 
+# Frame utamanya
 main_frame = tk.Frame(root, bg=warna_latar, padx=30, pady=20)
 main_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -78,8 +82,11 @@ label_judul = tk.Label(
 )
 label_judul.pack(pady=(0, 25))
 
+# Untuk Form Input
 form_frame = tk.Frame(main_frame, bg=warna_latar)
 form_frame.pack()
+
+form_frame.columnconfigure(1, weight=1)
 
 label_width = 15
 
@@ -94,8 +101,8 @@ label_input = tk.Label(
 )
 label_input.grid(row=0, column=0, sticky="w", padx=5, pady=8)
 
-entry_input = ttk.Entry(form_frame, font=("Arial", 11), width=34)
-entry_input.grid(row=0, column=1, padx=10, pady=8)
+entry_input = ttk.Entry(form_frame, font=("Arial", 11))
+entry_input.grid(row=0, column=1, padx=10, pady=8, sticky="ew")
 
 label_geser = tk.Label(
     form_frame,
@@ -135,11 +142,11 @@ entry_output = ttk.Entry(
     form_frame,
     textvariable=output_var,
     font=("Courier New", 11),
-    width=34,
     state="readonly"
 )
-entry_output.grid(row=2, column=1, padx=10, pady=(15, 8))
+entry_output.grid(row=2, column=1, padx=10, pady=(15, 8), sticky="ew")
 
+# Buat Tombol
 button_frame = tk.Frame(main_frame, bg=warna_latar)
 button_frame.pack(pady=20)
 
@@ -159,6 +166,7 @@ btn_decrypt = ttk.Button(
 )
 btn_decrypt.pack(side=tk.LEFT, padx=15)
 
+# Footer
 footer = tk.Label(
     main_frame,
     text="Cryptography",
