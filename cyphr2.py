@@ -2,7 +2,7 @@ import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 from tkinter import messagebox
 
-# Fungsi Encrypt
+# Fungsi Caesar Cipher
 def enkripsi(teks, geser):
     hasil = ""
     for karakter in teks:
@@ -13,7 +13,6 @@ def enkripsi(teks, geser):
             hasil += karakter
     return hasil
 
-# Fungsi Decrypt
 def dekripsi(teks, geser):
     return enkripsi(teks, -geser)
 
@@ -27,7 +26,7 @@ def proses_enkripsi():
         return
     hasil = enkripsi(teks, geser)
     output_var.set(hasil)
-
+    
 # Fungsi tombol Decrypt
 def proses_dekripsi():
     teks = entry_input.get()
@@ -39,14 +38,15 @@ def proses_dekripsi():
     hasil = dekripsi(teks, geser)
     output_var.set(hasil)
 
-# Buat cegah input keyboard di kolom hasil
 def disable_typing(event):
+    # Buat cegah input keyboard di kolom hasil
     return "break"
 
-# Buat atur tema
+# Buat Window utama dengan tema modern
 root = tb.Window(themename="solar")
 root.title("CYPHR")
 root.geometry("500x400")
+root.iconbitmap("D:/Xampp/htdocs/crypto-project/img/iconfinder.ico")
 
 # Frame utama
 main_frame = tb.Frame(root, padding=20)
@@ -78,7 +78,7 @@ output_var = tb.StringVar()
 entry_output = tb.Entry(form_frame, textvariable=output_var, font=("Courier New", 11), state="readonly")
 entry_output.grid(row=2, column=1, padx=10, pady=10, sticky=EW)
 
-# entry_output.bind("<Key>", disable_typing)  # Aktifkan kalau mau cegah pengetikan
+# entry_output.bind("<Key>", disable_typing)
 
 form_frame.columnconfigure(1, weight=1)
 
